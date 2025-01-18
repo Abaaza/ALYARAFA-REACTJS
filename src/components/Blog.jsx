@@ -4,52 +4,15 @@ import React, { useState } from 'react';
 const sampleProducts = [
   {
     id: 1,
-    name: 'Awesome Sneakers',
+    name: 'THE HOTEL SHOW KSA',
     description:
-      'These sneakers are crafted with the finest materials and designed to make a bold statement wherever you go.',
+      'WE WILL BE PARTICIPATING IN THE HOTEL SHOW EXHIBITION IN RIYADH KSA. FROM 10-12 SEPTEMBER SHOWING OUR LATEST DESIGNGS.',
     images: [
-      'https://picsum.photos/seed/sneaker1/600/400',
-      'https://picsum.photos/seed/sneaker2/600/400',
-      'https://picsum.photos/seed/sneaker3/600/400',
-      'https://picsum.photos/seed/sneaker4/600/400',
-      'https://picsum.photos/seed/sneaker5/600/400',
-      'https://picsum.photos/seed/sneaker6/600/400',
-      'https://picsum.photos/seed/sneaker7/600/400',
-      'https://picsum.photos/seed/sneaker8/600/400',
-      'https://picsum.photos/seed/sneaker9/600/400',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/The-Hotel-Show-Saudi-Arabia.webp',
+
     ],
   },
-  {
-    id: 2,
-    name: 'Stylish Jacket',
-    description:
-      'A lightweight jacket perfect for spring and fall. Durable, water-resistant, and fashion-forward.',
-    images: [
-      'https://picsum.photos/seed/jacket1/600/400',
-      'https://picsum.photos/seed/jacket2/600/400',
-    ],
-  },
-  {
-    id: 3,
-    name: 'Classic Watch',
-    description:
-      'An elegant watch that combines timeless style with modern functionality. Crafted for those who value quality.',
-    images: [
-      'https://picsum.photos/seed/watch1/600/400',
-      'https://picsum.photos/seed/watch2/600/400',
-      'https://picsum.photos/seed/watch3/600/400',
-    ],
-  },
-  {
-    id: 4,
-    name: 'Leather Backpack',
-    description:
-      'Carry all your essentials in style with this premium leather backpack. Perfect for work, travel, or everyday use.',
-    images: [
-      'https://picsum.photos/seed/backpack1/600/400',
-      'https://picsum.photos/seed/backpack2/600/400',
-    ],
-  },
+
 ];
 
 const Blog = () => {

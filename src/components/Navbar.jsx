@@ -17,7 +17,7 @@ function Navbar() {
   useEffect(() => {
     // For example, we pick a random ID for picsum, up to 999
     const random = Math.floor(Math.random() * 1000);
-    const url = `https://picsum.photos/600/1200?random=${random}`;
+    const url = `https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9410.webp`;
     setMobileBg(url);
   }, []);
 
@@ -25,12 +25,12 @@ function Navbar() {
   const productsSubmenu = [
     {
       title: "Dining Rooms",
-      image: "https://picsum.photos/400/300?random=11",
+      image: 'https://d1yp2xq08uy96k.cloudfront.net/images/DSC_1890.webp',
       to: "/diningrooms",
     },
     {
       title: "Living Spaces",
-      image: "https://picsum.photos/400/300?random=12",
+      image: "https://d1yp2xq08uy96k.cloudfront.net/images/DSC06908-1.webp",
       to: "/livingspaces",
     },
   ];
@@ -38,12 +38,12 @@ function Navbar() {
   const linesSubmenu = [
     {
       title: "Nu",
-      image: "https://picsum.photos/400/300?random=13",
+      image: "https://d1yp2xq08uy96k.cloudfront.net/images/nu.webp",
       to: "/nu",
     },
     {
       title: "VanDu",
-      image: "https://picsum.photos/400/300?random=14",
+      image: "https://d1yp2xq08uy96k.cloudfront.net/images/vandu.webp",
       to: "/vandu",
     },
   ];
@@ -63,7 +63,7 @@ function Navbar() {
   };
 
   // Toggle entire mobile menu
-  const toggleMobileMenu = () => { c
+  const toggleMobileMenu = () => { 
     setShowMobileMenu((prev) => !prev);
     // Reset mobile submenus
     setShowProducts(false);
@@ -213,10 +213,12 @@ function Navbar() {
 
         {/* CENTER LOGO */}
         <div className="absolute left-1/2 transform -translate-x-1/2 text-white">
+          <Link to="/">
         <img
                             src="https://s3.me-south-1.amazonaws.com/www.wall-masters.com/images/LOGO3.png"
                             className="w-auto h-10 object-cover mr-2"
                           />
+                            </Link>
         </div>
 
         {/* DESKTOP RIGHT NAV */}
@@ -255,60 +257,57 @@ function Navbar() {
       {/* MOBILE MENU (SLIDE FROM LEFT) */}
       <AnimatePresence>
         {showMobileMenu && (
-          <motion.div
-            className="fixed top-0 left-0 h-full w-[75%] z-50 shadow-xl"
-            initial={{ x: "-100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
-            // Add random background from picsum
-            style={{
-              backgroundImage: `url(${mobileBg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="flex flex-col h-full overflow-y-auto bg-black bg-opacity-50 p-4">
-              {/* CLOSE BUTTON */}
-              <button
-                className="text-white text-2xl self-end mb-4"
-                onClick={toggleMobileMenu}
-              >
-                X
-              </button>
+         <motion.div
+         className="fixed top-0 left-0 h-full w-[75%] z-50 shadow-xl"
+         initial={{ x: "-100%" }}
+         animate={{ x: 0 }}
+         exit={{ x: "-100%" }}
+         style={{
+           backgroundImage: `url(${mobileBg})`,
+           backgroundSize: "cover",
+           backgroundPosition: "center",
+         }}
+       >
+         {/* Semi-transparent overlay */}
+         <div
+           style={{
+             position: "absolute",
+             inset: 0,
+             backgroundColor: "black",
+             opacity: 0.5, // 50% opacity
+             zIndex: 0,
+           }}
+         ></div>
+       
+         {/* Content */}
+         <div className="relative z-10 flex flex-col h-full overflow-y-auto bg-black bg-opacity-50 p-4">
+           {/* CLOSE BUTTON */}
+           <button
+             className="text-white text-2xl self-end mb-4"
+             onClick={toggleMobileMenu}
+           >
+             X
+           </button>
 
               {/* 
                 TOP BAR LINKS for mobile (Shop, Blog)
                 each with border-b to separate 
               */}
               <Link
-                to="/shop"
-                onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
-              >
-                Shop
-              </Link>
-              <Link
-                to="/blog"
-                onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
-              >
-                Blog
-              </Link>
-
-              {/* HOME */}
-              <Link
                 to="/"
                 onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
+                className="text-white text-xl py-2 border-b border-white"
               >
                 Home
               </Link>
+ 
+              {/* HOME */}
 
               {/* PRODUCTS (Mobile) */}
               <div className="py-2 border-b border-white">
                 <div
                   onClick={() => setShowProducts((prev) => !prev)}
-                  className="flex justify-between items-center cursor-pointer text-lg text-white"
+                  className="flex justify-between items-center cursor-pointer text-xl text-white"
                 >
                   <span>Products</span>
                   <span>{showProducts ? "▲" : "▼"}</span>
@@ -316,7 +315,7 @@ function Navbar() {
                 <AnimatePresence>
                   {showProducts && (
                     <motion.div
-                      className="bg-gray-200 bg-opacity-70 rounded mt-2"
+                      className="bg-gray-200 bg-opacity-40 rounded mt-2"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -331,9 +330,9 @@ function Navbar() {
                           <img
                             src={item.image}
                             alt={item.title}
-                            className="w-8 h-8 object-cover mr-2"
+                            className="w-15 h-10 object-cover mr-2"
                           />
-                          <span className="text-sm text-black">
+                          <span className="text-xl text-black">
                             {item.title}
                           </span>
                         </Link>
@@ -347,7 +346,7 @@ function Navbar() {
               <Link
                 to="/collection"
                 onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
+                className="text-white text-xl py-2 border-b border-white"
               >
                 2024 Collection
               </Link>
@@ -356,7 +355,7 @@ function Navbar() {
               <div className="py-2 border-b border-white">
                 <div
                   onClick={() => setShowLines((prev) => !prev)}
-                  className="flex justify-between items-center cursor-pointer text-lg text-white"
+                  className="flex justify-between items-center cursor-pointer text-xl text-white"
                 >
                   <span>Lines</span>
                   <span>{showLines ? "▲" : "▼"}</span>
@@ -364,7 +363,7 @@ function Navbar() {
                 <AnimatePresence>
                   {showLines && (
                     <motion.div
-                      className="bg-gray-200 bg-opacity-70 rounded mt-2"
+                      className="bg-gray-200 bg-opacity-40 rounded mt-2"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -379,9 +378,9 @@ function Navbar() {
                           <img
                             src={item.image}
                             alt={item.title}
-                            className="w-8 h-8 object-cover mr-2"
+                            className="w-15 h-10 object-cover mr-2"
                           />
-                          <span className="text-sm text-black">
+                          <span className="text-md text-black">
                             {item.title}
                           </span>
                         </Link>
@@ -395,7 +394,7 @@ function Navbar() {
               <Link
                 to="/aboutus"
                 onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
+                className="text-white text-xl py-2 border-b border-white"
               >
                 About
               </Link>
@@ -404,7 +403,7 @@ function Navbar() {
               <Link
                 to="/careers"
                 onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
+                className="text-white text-xl py-2 border-b border-white"
               >
                 Careers
               </Link>
@@ -413,7 +412,7 @@ function Navbar() {
               <Link
                 to="/contactus"
                 onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
+                className="text-white text-xl py-2 border-b border-white"
               >
                 Contact Us
               </Link>
@@ -422,9 +421,24 @@ function Navbar() {
               <Link
                 to="/catalogue"
                 onClick={toggleMobileMenu}
-                className="text-white text-lg py-2 border-b border-white"
+                className="text-white text-xl py-2 border-b border-white"
               >
                 Catalogue
+              </Link>
+              <Link
+                to="/shop"
+                onClick={toggleMobileMenu}
+                className="text-white text-xl py-2 border-b border-white"
+              >
+                Shop
+              </Link>
+
+              <Link
+                to="/blog"
+                onClick={toggleMobileMenu}
+                className="text-white text-xl py-2 border-b border-white"
+              >
+                Blog
               </Link>
             </div>
           </motion.div>

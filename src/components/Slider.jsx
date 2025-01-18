@@ -1,32 +1,26 @@
-// Slider.js
-
+// Slider.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import Footer from './Footer';
+import emailjs from 'emailjs-com';
 
 // Sample slides data
-// (Added optional `objectPositionDesktop` and `objectPositionMobile` for demonstration)
 const sliderContent = [
-  
-  {
-    desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/Aly-Arafa_1_1_1.mp4',
-    mobile: 'https://d1yp2xq08uy96k.cloudfront.net/images/Nu_1_1.mp4',
-    // No object position needed for videos, but you can still define them
-  },
   {
     desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/22.webp',
     mobile: 'https://d1yp2xq08uy96k.cloudfront.net/images/IMG_6958.webp',
     showWelcome: true,
-    // Example of controlling position
-    objectPositionDesktop: 'center',   // or '50% 50%', etc.
+    objectPositionDesktop: 'center',
     objectPositionMobile: 'center',
   },
   {
-    desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00349-1.webp',
+    desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00349-3.webp',
     mobile: 'https://d1yp2xq08uy96k.cloudfront.net/images/VANMOB.webp',
-    // Position the desktop image closer to the top, for example:
     objectPositionDesktop: '50% 20%',
-    // Position mobile center
     objectPositionMobile: 'center',
+  },
+  {
+    desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/Aly-Arafa_1_1_1.mp4',
+    mobile: 'https://d1yp2xq08uy96k.cloudfront.net/images/Nu_1_1.mp4',
   },
   {
     desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/555.webp',
@@ -37,7 +31,7 @@ const sliderContent = [
     mobile: 'https://d1yp2xq08uy96k.cloudfront.net/images/sfadsf.webp',
   },
   {
-    desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/VANMOB.webp',
+    desktop: 'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8701-scaled.webp',
     mobile: 'https://d1yp2xq08uy96k.cloudfront.net/images/Arafa-culling-204-DSC04516.webp',
   },
   // 6th Slide => Footer
@@ -50,9 +44,67 @@ const sliderContent = [
 
 function Slider() {
   const containerRef = useRef(null);
+
+  // For controlling the scroll
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
+  // --- Modal State ---
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Modal form data
+  const [formData, setFormData] = useState({
+    name: '',
+    number: '',
+    color: 'orange', // default color
+    size: '50cm',    // default size
+  });
+
+  // Update form data on input changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Open modal
+  const handlePreOrder = () => {
+    setModalOpen(true);
+  };
+
+  // Close modal
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  // Submit form => sends email via EmailJS
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Concatenate all form data into one string
+    const templateParams = {
+      user_name: `Name: ${formData.name}
+Phone: ${formData.number}
+Color: ${formData.color}
+Size: ${formData.size}`,
+    };
+
+    emailjs
+      .send(
+        'service_4hrebk8',
+        'template_1zxs0jz',
+        templateParams,
+        '1mIy5IpEpJPFCN01g'
+      )
+      .then((response) => {
+        alert('Pre-order submitted successfully!');
+        setModalOpen(false);
+      })
+      .catch((error) => {
+        alert('There was an error sending your pre-order.');
+        console.log('EmailJS FAILED...', error);
+      });
+  };
+
+  // Listen for window resize
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -61,6 +113,7 @@ function Slider() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Handle wheel scroll for snap slides
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -96,10 +149,6 @@ function Slider() {
     return () => container.removeEventListener('wheel', handleScroll);
   }, [isScrolling]);
 
-  const handlePreOrder = () => {
-    console.log('Pre-order clicked');
-  };
-
   return (
     <div
       ref={containerRef}
@@ -107,20 +156,20 @@ function Slider() {
       style={{ scrollSnapType: 'y mandatory' }}
     >
       {sliderContent.map((slide, index) => {
-        // If it's our 6th slide with the Footer
+        // --- Slide with the footer pinned at the bottom (desktop) ---
         if (slide.showFooter) {
           return (
             <div
               key={index}
-              className="relative w-full snap-start snap-always"
+              className="relative w-full snap-start snap-always bg-black text-white"
+              // Force the container to be 100vh on desktop
               style={{ height: isMobile ? 'auto' : '100vh' }}
             >
-              {/* Desktop view => top half image, bottom half footer */}
+              {/* Desktop => image (or video) in the remaining space, footer pinned at bottom */}
               {!isMobile && (
                 <div className="flex flex-col h-full">
-                  {/* Top half => the image */}
-                  <div className="h-2/5">
-                    {/* Check if desktop is mp4, otherwise show image */}
+                  {/* Image/Video: fill the remaining vertical space */}
+                  <div className="flex-auto relative">
                     {slide.desktop.endsWith('.mp4') ? (
                       <video
                         src={slide.desktop}
@@ -128,26 +177,29 @@ function Slider() {
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover"
+                        // Absolutely fill the parent
+                        className="absolute w-full h-full object-cover"
                       />
                     ) : (
                       <img
                         src={slide.desktop}
                         alt="Footer Slide"
-                        className="w-full h-full object-cover"
+                        // Absolutely fill the parent
+                        className="absolute w-full h-full object-cover"
                       />
                     )}
                   </div>
-                  {/* Bottom half => Footer */}
-                  <div className="h-3/5 overflow-auto bg-black text-white">
+
+                  {/* Footer pinned at the bottom */}
+                  <div className="flex-none">
                     <Footer />
                   </div>
                 </div>
               )}
 
-              {/* Mobile view => Hide the image, just show the Footer normally */}
+              {/* Mobile => simpler layout */}
               {isMobile && (
-                <div className="bg-black text-white">
+                <div>
                   <Footer />
                 </div>
               )}
@@ -155,16 +207,16 @@ function Slider() {
           );
         }
 
-        // All other slides (1–5)
+        // --- All other slides ---
         return (
           <div
             key={index}
             className="relative h-screen w-full snap-start snap-always"
           >
-            {/* Decide if it's an image or video based on extension */}
+            {/* Desktop vs Mobile image/video */}
             {isMobile
               ? slide.mobile.endsWith('.mp4')
-                ? // VIDEO (mobile)
+                ? (
                   <video
                     src={slide.mobile}
                     autoPlay
@@ -172,21 +224,17 @@ function Slider() {
                     muted
                     playsInline
                     className="w-full h-full object-cover"
-                    // If you want to control video position, you can use objectPosition with inline style
-                    // style={{ objectPosition: slide.objectPositionMobile || 'center' }}
                   />
-                : // IMAGE (mobile)
+                ) : (
                   <img
                     src={slide.mobile}
                     alt={`Slide ${index + 1}`}
                     className="w-full h-full object-cover"
-                    style={{
-                      // Control the objectPosition if defined
-                      objectPosition: slide.objectPositionMobile || 'center',
-                    }}
+                    style={{ objectPosition: slide.objectPositionMobile || 'center' }}
                   />
+                )
               : slide.desktop.endsWith('.mp4')
-              ? // VIDEO (desktop)
+              ? (
                 <video
                   src={slide.desktop}
                   autoPlay
@@ -194,18 +242,16 @@ function Slider() {
                   muted
                   playsInline
                   className="w-full h-full object-cover"
-                  // style={{ objectPosition: slide.objectPositionDesktop || 'center' }}
+                  style={{ objectPosition: slide.objectPositionDesktop || 'center' }}
                 />
-              : // IMAGE (desktop)
+              ) : (
                 <img
                   src={slide.desktop}
                   alt={`Slide ${index + 1}`}
                   className="w-full h-full object-cover"
-                  style={{
-                    // Control the objectPosition if defined
-                    objectPosition: slide.objectPositionDesktop || 'center',
-                  }}
+                  style={{ objectPosition: slide.objectPositionDesktop || 'center' }}
                 />
+              )
             }
 
             {/* Optional welcome overlay on the 1st slide */}
@@ -230,11 +276,98 @@ function Slider() {
           </div>
         );
       })}
+
+      {/* --- Modal for Pre-Order Form --- */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 flex items-center justify-center z-50 
+                     bg-black bg-opacity-70"
+        >
+          <div className="bg-white  bg-opacity-70 p-6 rounded shadow-lg w-11/12 max-w-md relative">
+            <button
+              onClick={handleModalClose}
+              className="absolute top-2 right-2 text-gray-600 hover:text-black"
+            >
+              &times;
+            </button>
+            <h2 className="text-xl mb-4 font-bold text-center">
+              Dala Horse Pre-order Form
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Name */}
+              <div>
+                <label className="block mb-1 font-medium">Name:</label>
+                <input
+                  required
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full border p-2 rounded"
+                  placeholder="Enter your name"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="block mb-1 font-medium">Phone Number:</label>
+                <input
+                  required
+                  type="text"
+                  name="number"
+                  value={formData.number}
+                  onChange={handleChange}
+                  className="w-full border p-2 rounded"
+                  placeholder="e.g. 01002003000"
+                />
+              </div>
+
+              {/* Color */}
+              <div>
+                <label className="block mb-1 font-medium">Color:</label>
+                <select
+                  name="color"
+                  value={formData.color}
+                  onChange={handleChange}
+                  className="w-full border p-2 rounded"
+                >
+                  <option value="orange">Orange</option>
+                  <option value="green">Green</option>
+                  <option value="brown">Brown</option>
+                  <option value="yellow">Yellow</option>
+                </select>
+              </div>
+
+              {/* Size */}
+              <div>
+                <label className="block mb-1 font-medium">Size:</label>
+                <select
+                  name="size"
+                  value={formData.size}
+                  onChange={handleChange}
+                  className="w-full border p-2 rounded"
+                >
+                  <option value="50cm">50cm</option>
+                  <option value="70cm">70cm</option>
+                  <option value="90cm">90cm</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gray-400 text-white py-2 rounded hover:bg-gray-300"
+              >
+                Submit Pre-Order
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// Optional global text shadow
+// Optional text-shadow style injection
 const styles = `
   .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);

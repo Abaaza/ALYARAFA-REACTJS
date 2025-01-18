@@ -1,12 +1,51 @@
-import React from "react";
+// Footer.jsx
+
+import React, { useState } from "react";
 import {
   FaFacebookF,
   FaInstagram,
   FaTiktok,
   FaYoutube,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import emailjs from "emailjs-com";
 
 const Footer = () => {
+  // States for Subscription form
+  const [subName, setSubName] = useState("");
+  const [subEmail, setSubEmail] = useState("");
+
+  // Handle subscription form submission via EmailJS
+  const handleSubscription = (e) => {
+    e.preventDefault();
+
+    // If your EmailJS template has only {{user_name}}, pack everything in one var:
+    const templateParams = {
+      user_name: `Subscription Request
+Name: ${subName}
+Email: ${subEmail}`,
+    };
+
+    emailjs
+      .send(
+        "service_4hrebk8",    // Service ID
+        "template_1zxs0jz",   // Template ID
+        templateParams,
+        "1mIy5IpEpJPFCN01g"   // Public/User Key
+      )
+      .then((response) => {
+        alert("Subscription request sent successfully!");
+        console.log("EmailJS SUCCESS:", response.status, response.text);
+        // Reset form
+        setSubName("");
+        setSubEmail("");
+      })
+      .catch((error) => {
+        alert("There was an error sending your subscription.");
+        console.log("EmailJS FAILED...", error);
+      });
+  };
+
   return (
     <footer className="bg-gray-900 text-white py-10 px-4">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -22,10 +61,11 @@ const Footer = () => {
             generation, Aly Arafa is now widely recognized as a remarkable
             brand offering unique trends.
           </p>
+
           {/* Social Icons */}
           <div className="mt-4 flex space-x-4 text-xs">
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/alyarafafurniture?mibextid=ZbWKwL"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue-600"
@@ -33,23 +73,16 @@ const Footer = () => {
               <FaFacebookF size={20} />
             </a>
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/alyarafa.eg/?igshid=MzRlODBiNWFlZA%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-pink-500"
             >
               <FaInstagram size={20} />
             </a>
+
             <a
-              href="https://www.tiktok.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-gray-200"
-            >
-              <FaTiktok size={20} />
-            </a>
-            <a
-              href="https://www.youtube.com/"
+              href="https://www.youtube.com/@alyarafafurniture1581"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-red-500"
@@ -64,44 +97,44 @@ const Footer = () => {
           <h2 className="text-xs font-semibold ml-12 mb-2">Quick Links</h2>
           <ul className="text-xs space-y-2 ml-12">
             <li>
-              <a href="#home" className="hover:text-gray-300">
+              <Link to="/" className="hover:text-gray-300">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#products" className="hover:text-gray-300">
-                Products
-              </a>
+              <Link to="/nu" className="hover:text-gray-300">
+                NU
+              </Link>
             </li>
             <li>
-              <a href="#2024-collection" className="hover:text-gray-300">
+              <Link to="/collection" className="hover:text-gray-300">
                 2024 Collection
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#lines" className="hover:text-gray-300">
-                Lines
-              </a>
+              <Link to="/vandu" className="hover:text-gray-300">
+                Van Du
+              </Link>
             </li>
             <li>
-              <a href="#about" className="hover:text-gray-300">
+              <Link to="/aboutus" className="hover:text-gray-300">
                 About Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#careers" className="hover:text-gray-300">
+              <Link to="/careers" className="hover:text-gray-300">
                 Careers
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#contactus" className="hover:text-gray-300">
+              <Link to="/contactus" className="hover:text-gray-300">
                 Contact Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#catalogue" className="hover:text-gray-300">
+              <Link to="/catalogue" className="hover:text-gray-300">
                 Catalogue
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -139,10 +172,11 @@ const Footer = () => {
           <p className="text-xs mb-4">
             Stay informed about our latest designs and offers.
           </p>
-          <form className="space-y-3 text-xs">
+          {/* Subscription Form */}
+          <form className="space-y-3 text-xs" onSubmit={handleSubscription}>
             {/* Name */}
             <div>
-              <label htmlFor="sub-name" className="block text-xs mb-1 text-xs">
+              <label htmlFor="sub-name" className="block text-xs mb-1">
                 Name
               </label>
               <input
@@ -150,11 +184,13 @@ const Footer = () => {
                 type="text"
                 placeholder="Name"
                 className="w-full px-3 py-2 text-gray-800 rounded focus:outline-none text-xs"
+                value={subName}
+                onChange={(e) => setSubName(e.target.value)}
               />
             </div>
             {/* Email */}
             <div>
-              <label htmlFor="sub-email" className="block text-xs mb-1 text-xs">
+              <label htmlFor="sub-email" className="block text-xs mb-1">
                 Email
               </label>
               <input
@@ -162,25 +198,27 @@ const Footer = () => {
                 type="email"
                 placeholder="Email"
                 className="w-full px-3 py-2 text-gray-800 rounded focus:outline-none text-xs"
+                value={subEmail}
+                onChange={(e) => setSubEmail(e.target.value)}
               />
             </div>
             {/* Submit Button */}
             <button
               type="submit"
-              className="mt-2 bg-gray-700 hover:bg-gray-600 text-xs px-4 py-2 rounded text-xs"
+              className="mt-2 bg-gray-700 hover:bg-gray-600 text-xs px-4 py-2 rounded"
             >
               Subscribe
             </button>
           </form>
 
-          {/* Blog & Shop */}
+          {/* Blog & Shop Links */}
           <div className="mt-6 space-x-4 hidden md:block">
-            <a href="#blog" className="underline hover:text-gray-300 text-xs">
+            <Link to="/blog" className="underline hover:text-gray-300 text-xs">
               Blog
-            </a>
-            <a href="#shop" className="underline hover:text-gray-300 text-xs">
+            </Link>
+            <Link to="/shop" className="underline hover:text-gray-300 text-xs">
               Shop
-            </a>
+            </Link>
           </div>
         </div>
       </div>

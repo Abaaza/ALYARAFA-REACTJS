@@ -2,52 +2,238 @@
 import React, { useState } from 'react';
 
 const sampleProducts = [
+ 
+  {
+    id: 5,
+    name: 'NORDIC',
+    description:
+    'Crafted from Nature’s Beauty: This exquisite wood engraving showcases the timeless elegance of olive wood, a true work of art that reflects both the strength of the material and the mastery of the craftsman’s hand.”',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG_6401.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC06849.webp',
+    ],
+  },
+  {
+    id: 6,
+    name: 'NORMAN & ENZO',
+    description:
+    'Luxury meets comfort: Our upholstered sofa effortlessly combines clean curves with the opulence of velvet and the softness of linen, creating a seating experience like no other.',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF4549-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/Arafa-culling-185-DSC04412.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8750-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8710-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8696-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF0657.webp',
+      
+    ],
+  },
+  {
+    id: 9,
+    name: '91',
+    description:
+    'Gather your family and loved ones around our 91 dining room. Because family is not an important thing, it’s everything.',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF3671-Edit-Edit-1-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1801-Edit-Edit-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1827.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1855-Edit.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1815-Edit.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/Arafa-culling-204-DSC04516.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/Arafa-culling-270-DSC04668.webp',
+    ],
+  },
+ 
+  {
+    id: 11,
+    name: 'FATIMA',
+    description:
+    'Elegance Redefined: Gather around a slice of sophistication. Our slender Fatimadining table with its finely engraved surface merges aesthetics with functionality, creating a dining experience that’s both intimate and exquisite. Perfect for those who appreciate the delicate art of dining.”',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC07245.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC_1890.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC07306.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC07262.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC_1901.webp',
+    ],
+  },
   {
     id: 1,
-    name: 'Awesome Sneakers',
+    name: 'The Modern Dala Horse Collection',
     description:
-      'These sneakers are crafted with the finest materials and designed to make a bold statement wherever you go.',
+      'Inspired by the iconic Swedish Dala Horse, this modern reimagining features sleek, glossy finishes in deep green and rich burgundy tones. These handcrafted sculptures, available in varying sizes, symbolize strength, tradition, and craftsmanship while adding a contemporary touch to any space. Perfect for collectors or as a statement decor piece, The Modern Dala Horse Collection combines heritage with modern design aesthetics.',
     images: [
-      'https://picsum.photos/seed/sneaker1/600/400',
-      'https://picsum.photos/seed/sneaker2/600/400',
-      'https://picsum.photos/seed/sneaker3/600/400',
-      'https://picsum.photos/seed/sneaker4/600/400',
-      'https://picsum.photos/seed/sneaker5/600/400',
-      'https://picsum.photos/seed/sneaker6/600/400',
-      'https://picsum.photos/seed/sneaker7/600/400',
-      'https://picsum.photos/seed/sneaker8/600/400',
-      'https://picsum.photos/seed/sneaker9/600/400',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/s4.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/s2.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/s1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/s4.webp',
+
     ],
   },
   {
-    id: 2,
-    name: 'Stylish Jacket',
+    id: 12,
+    name: 'Avantgarde',
     description:
-      'A lightweight jacket perfect for spring and fall. Durable, water-resistant, and fashion-forward.',
-    images: [
-      'https://picsum.photos/seed/jacket1/600/400',
-      'https://picsum.photos/seed/jacket2/600/400',
+      'Avantgarde , Plush curves and soft tones make for an ultra chic sofa with unmatched comfort',
+    images: [ 
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC05210-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG_6400-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1883.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9410.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9409.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC05208-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC05233-scaled.webp',
     ],
   },
   {
-    id: 3,
-    name: 'Classic Watch',
+    id: 13,
+    name: 'ORION & WHITEY',
     description:
-      'An elegant watch that combines timeless style with modern functionality. Crafted for those who value quality.',
+    'Elegance Redefined: Gather around a slice of sophistication. Our slender Fatimadining table with its finely engraved surface merges aesthetics with functionality, creating a dining experience that’s both intimate and exquisite. Perfect for those who appreciate the delicate art of dining.”',
     images: [
-      'https://picsum.photos/seed/watch1/600/400',
-      'https://picsum.photos/seed/watch2/600/400',
-      'https://picsum.photos/seed/watch3/600/400',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00346.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1960.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1940.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1938-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1901.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00518.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00342.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00346.webp',
     ],
   },
   {
-    id: 4,
-    name: 'Leather Backpack',
+    id: 14,
+    name: 'Rover L- Shape',
     description:
-      'Carry all your essentials in style with this premium leather backpack. Perfect for work, travel, or everyday use.',
+      'Elevate your living space with the perfect blend of modern design and luxurious comfort. Our off-white linen Rover sofa adds a touch of sophistication to any room, inviting you to unwind in style. Experience relaxation like never before.”',
     images: [
-      'https://picsum.photos/seed/backpack1/600/400',
-      'https://picsum.photos/seed/backpack2/600/400',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1889.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00547.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1893.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1909.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1925-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1927-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00550.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00532.webp',
+    ],
+  },
+  {
+    id: 15,
+    name: 'Luini Premium',
+    description:
+      'LUINI  PREMIUM  | The elegance that is missing from your living room',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00397-2-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00412-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8566-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00756-1.webp',
+
+    ],
+  },
+  {
+    id: 16,
+    name: 'Luini',
+    description:
+      'Elegance intertwined: Embrace the luxurious comfort of this beige Chanelia fabric sofa, enveloped in sophistication as leather belts embrace its timeless design.”',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8614-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8624.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8614.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8575-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1985.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8569-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00550.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF8566-scaled.webp',
+    ],
+  },
+  {
+    id: 17,
+    name: 'Pedro L- Shape',
+    description:
+      'Unwind in Style: Embrace the Perfect Blend of Comfort and Elegance with our Pedro L-Shape Sofa featuring Luxurious Linen Fabrics and Invigorating Green Leather Accents. A Contemporary Masterpiece for Your Living Space.”',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00353.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00719.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00723.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/chairs-postPedro1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/chairs-postPedro3.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00713.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00289.webp',
+    ],
+  },
+  {
+    id: 18,
+    name: 'Amstel & Alpine Klass',
+    description:
+      'Amstel Elegance: Where Dutch Design Meets Cozy Comfort. Sink into the allure of our wooden grey sofa adorned with rich navy blue cushions, named after the picturesque city of Amstel. Experience a touch of Netherlands’ charm right in your living space.',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00572.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG_1760-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG_1565-1-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG_1567-scaled.webp',
+
+    ],
+  },
+  {
+    id: 19,
+    name: 'Valle',
+    description:
+      'Valle is a sofa with a bold personality that combines essential design , contemporary Lines and a high level of craftsmanship',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF4521.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9327.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9325.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9320.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF4531.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF4527.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF4522.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00567.webp',
+    ],
+  },
+  {
+    id: 20,
+    name: 'Leven & Sabrina',
+    description:
+      'Elegance and Comfort Combined: Relax in Style on our Courbe Leven  Sofa, where timeless design meets ultimate relaxation.',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00664.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00663.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00658.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG-1574-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00665.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00660.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00657.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG-1569-1-scaled.webp',
+    ],
+  },
+  {
+    id: 21,
+    name: 'Essence',
+    description:
+      'Elegance Redefined: Sink into the luxurious comfort of our semi-classic sofa and chairs, adorned with ultra-wide rosy backs that embrace you in timeless style and soothing softness. Experience the perfect blend of classic charm and modern comfort, making every moment on this furniture a delightful retreat.”',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00645-2.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00772.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00648.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00707.webp',
+
+    ],
+  },
+ 
+
+
+  {
+    id: 34,
+    name: 'FIKA',
+    description:
+"FIKA a stunning piece of furniture that combines natural materials with modern design. The chairs are upholstered in supple suede leather, providing both comfort and style. The wooden frame of the chairs and table is expertly crafted to showcase the natural grain and texture of the wood.",
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00489-2.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00456.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00464.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00481.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00510.webp',
+  
     ],
   },
 ];

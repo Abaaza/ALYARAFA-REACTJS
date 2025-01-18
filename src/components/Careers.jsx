@@ -8,6 +8,7 @@ import {
   FaChartLine,
   FaHandsHelping,
 } from 'react-icons/fa'; // Example icons
+import emailjs from 'emailjs-com'; // <-- import EmailJS
 
 const Careers = () => {
   // Basic local form state
@@ -26,25 +27,56 @@ const Careers = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Using EmailJS to send data
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted form data:', formData);
-    alert('Form submitted! Check console for data.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      graduationDate: '',
-      speciality: '',
-      position: '',
-      message: '',
-    });
+    
+    // If your EmailJS template references just one field (e.g., {{user_name}}),
+    // we can combine all data into a single string:
+    const templateParams = {
+      user_name: `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Graduation Date: ${formData.graduationDate}
+Speciality: ${formData.speciality}
+Position: ${formData.position}
+Message: ${formData.message}
+      `,
+    };
+
+    // Send email via EmailJS
+    emailjs
+      .send(
+        'service_4hrebk8',    // Service ID
+        'template_1zxs0jz',   // Template ID
+        templateParams,
+        '1mIy5IpEpJPFCN01g'   // User (public) ID
+      )
+      .then((response) => {
+        alert('Application submitted successfully!');
+        console.log('EmailJS SUCCESS:', response.status, response.text);
+
+        // Clear form after success
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          graduationDate: '',
+          speciality: '',
+          position: '',
+          message: '',
+        });
+      })
+      .catch((error) => {
+        alert('There was an error sending your application.');
+        console.log('EmailJS FAILED...', error);
+      });
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* Hero Section */}
-      
+      {/* Hero Section - (omitted for brevity or you can place a header/banner) */}
 
       {/* Main content container */}
       <div className="flex-grow max-w-6xl mx-auto px-6 py-10">
@@ -73,6 +105,7 @@ const Careers = () => {
                 and continuous learning.
               </p>
             </div>
+
             {/* Card 2: Quality and Craftsmanship */}
             <div className="bg-white p-6 rounded-md shadow hover:shadow-lg transition group">
               <FaShieldAlt className="text-gray-400 text-3xl mb-4 group-hover:scale-105 transition-transform" />
@@ -82,6 +115,7 @@ const Careers = () => {
                 the test of time.
               </p>
             </div>
+
             {/* Card 3: Passion for Design */}
             <div className="bg-white p-6 rounded-md shadow hover:shadow-lg transition group">
               <FaPalette className="text-gray-400 text-3xl mb-4 group-hover:scale-105 transition-transform" />
@@ -101,6 +135,7 @@ const Careers = () => {
                 help you grow to your full potential.
               </p>
             </div>
+
             {/* Card 5: Team Spirit */}
             <div className="bg-white p-6 rounded-md shadow hover:shadow-lg transition group">
               <FaHandsHelping className="text-gray-400 text-3xl mb-4 group-hover:scale-105 transition-transform" />
@@ -110,8 +145,8 @@ const Careers = () => {
                 and contributions are valued.
               </p>
             </div>
-            {/* Empty / spacing card, or you could add more text */}
-  
+
+            {/* (Optional) more cards or an empty placeholder */}
           </div>
         </section>
 

@@ -1,6 +1,7 @@
 // ContactUs.js
 
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com'; // <-- import EmailJS
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -19,38 +20,72 @@ const ContactUs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Submit or process formData here (POST to API, etc.)
-    console.log('Form submitted:', formData);
-    alert('Form submitted! Check console for data.');
-    setFormData({
-      name: '',
-      email: '',
-      country: '',
-      phone: '',
-      department: '',
-      message: '',
-    });
+
+    // If your EmailJS template only uses something like {{user_name}},
+    // pack everything into that one variable:
+    const templateParams = {
+      user_name: `Name: ${formData.name}
+Email: ${formData.email}
+Country: ${formData.country}
+Phone: ${formData.phone}
+Department: ${formData.department}
+Message: ${formData.message}`,
+    };
+
+    emailjs
+      .send(
+        'service_4hrebk8',    // Your Service ID
+        'template_1zxs0jz',   // Your Template ID
+        templateParams,
+        '1mIy5IpEpJPFCN01g'   // Your Public (User) Key
+      )
+      .then((response) => {
+        alert('Form submitted and email sent!');
+        console.log('EmailJS SUCCESS:', response.status, response.text);
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          country: '',
+          phone: '',
+          department: '',
+          message: '',
+        });
+      })
+      .catch((error) => {
+        alert('There was an error sending your message.');
+        console.log('EmailJS FAILED...', error);
+      });
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-
       {/* Container */}
       <div className="max-w-6xl mx-auto px-6 py-10">
         {/* Intro / Contact Info */}
         <section className="mb-8 text-gray-800">
           <p className="leading-relaxed mb-4">
-            Thank you for your interest in <span className="font-semibold">Aly Arafa</span> furniture. We value your feedback, inquiries, and suggestions. Please feel free 
-            to get in touch with us using the information provided below. Our dedicated 
-            team is ready to assist you.
+            Thank you for your interest in <span className="font-semibold">Aly Arafa</span> furniture. We value your feedback, inquiries, and suggestions.
+            Please feel free to get in touch with us using the information provided below. Our
+            dedicated team is ready to assist you.
           </p>
-
           <h2 className="text-xl font-semibold mb-2">General Inquiries:</h2>
-          <p>Email: <a href="mailto:info@arafafurniture.com" className="text-blue-600">info@arafafurniture.com</a></p>
-          <p>Phone: <a href="tel:+201027037000" className="text-blue-600">+201027037000</a></p>
+          <p>
+            Email:{' '}
+            <a href="mailto:info@arafafurniture.com" className="text-blue-600">
+              info@arafafurniture.com
+            </a>
+          </p>
+          <p>
+            Phone:{' '}
+            <a href="tel:+201027037000" className="text-blue-600">
+              +201027037000
+            </a>
+          </p>
           <p className="text-sm text-gray-600 mt-2">
-            We aim to respond to all inquiries within 24-48 hours. Your satisfaction 
-            is our priority, and we strive to provide you with the best possible assistance.
+            We aim to respond to all inquiries within 24-48 hours. Your satisfaction is our
+            priority, and we strive to provide you with the best possible assistance.
           </p>
         </section>
 
@@ -58,24 +93,21 @@ const ContactUs = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Showroom Visits</h2>
           <p className="text-gray-700 mb-4">
-            To experience our furniture collections firsthand, we invite you to visit our showrooms. 
-            Our showrooms are designed to inspire and showcase the finest furniture pieces that exemplify 
-            elegance and quality craftsmanship.
+            To experience our furniture collections firsthand, we invite you to visit our showrooms.
+            Our showrooms are designed to inspire and showcase the finest furniture pieces that
+            exemplify elegance and quality craftsmanship.
           </p>
 
           {/* Showroom Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* New Cairo (Nu) */}
             <div className="bg-white p-4 rounded shadow flex flex-col">
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                New Cairo (Nu)
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">New Cairo (Nu)</h3>
               <p className="text-sm text-gray-600 mb-2">
-                383,385 N Teseen Infront of Water Way White 2, New Cairo 1, 
+                383,385 N Teseen Infront of Water Way White 2, New Cairo 1,
                 Cairo Governorate 11865 <br />
                 (+20102 703 7000)
               </p>
-              {/* Example mini map iframe (replace src with your Google Maps embed link) */}
               <iframe
                 title="New Cairo Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.9310599695644!2d31.4957425!3d30.0233171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145820b1641e0cc3%3A0x54c2efc9cd477717!2sWaterway%20White%20II!5e0!3m2!1sen!2seg!4v1690673506661!5m2!1sen!2seg"
@@ -89,17 +121,14 @@ const ContactUs = () => {
 
             {/* Mivida (Nu) */}
             <div className="bg-white p-4 rounded shadow flex flex-col">
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                Mivida (Nu)
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">Mivida (Nu)</h3>
               <p className="text-sm text-gray-600 mb-2">
                 Mivida Parcel 41 (D-03) Boulevard <br />
                 (+201010362373)
               </p>
-              {/* Mini map iframe */}
               <iframe
                 title="Mivida Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110675.11977132196!2d31.252511931159237!3d29.970285554653023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822f1db5b0301%3A0x8689435ae2ce01d5!2sEmaar%20Mivida%20Boulevard!5e0!3m2!1sen!2seg!4v1690673563758!5m2!1sen!2seg"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2627.3231928921023!2d31.53070750981942!3d30.004999074838974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145823ae51d23b51%3A0x420b3e9764a67355!2sNu%20Furniture%20by%20Aly%20Arafa%20Mivida!5e1!3m2!1sen!2sus!4v1736600544351!5m2!1sen!2sus"
                 width="100%"
                 height="200"
                 allowFullScreen=""
@@ -110,9 +139,7 @@ const ContactUs = () => {
 
             {/* Heliopolis (Van Du) */}
             <div className="bg-white p-4 rounded shadow flex flex-col">
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                Heliopolis (Van Du)
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">Heliopolis (Van Du)</h3>
               <p className="text-sm text-gray-600 mb-2">
                 14 Nabil El Wakkad St. <br />
                 (+201065516886)
@@ -130,13 +157,10 @@ const ContactUs = () => {
 
             {/* Factory */}
             <div className="bg-white p-4 rounded shadow flex flex-col">
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                Factory
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">Factory</h3>
               <p className="text-sm text-gray-600 mb-2">
                 Building 702 3rd Settelment, Industrial Zone, Cairo, Egypt
               </p>
-              {/* Example minimal or placeholder map */}
               <iframe
                 title="Factory Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3455.4387893499766!2d31.373083415446434!3d30.01837612403279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1458166cc843c257%3A0x64a700990fa74349!2sIndustrial%20Area%2C%20New%20Cairo%203!5e0!3m2!1sen!2seg!4v1690673724864!5m2!1sen!2seg"
@@ -153,9 +177,7 @@ const ContactUs = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-1">
                 New Administrative Capital
               </h3>
-              <p className="text-sm text-gray-600 mb-2">
-                Better Home Mall Opening Soon
-              </p>
+              <p className="text-sm text-gray-600 mb-2">Better Home Mall Opening Soon</p>
               <iframe
                 title="New Capital Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5520.959265331971!2d31.670600586663308!3d29.99715053305213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14582147e3a0709f%3A0x60c3745fd1f7e582!2sNew%20Administrative%20Capital!5e0!3m2!1sen!2seg!4v1690673774891!5m2!1sen!2seg"
@@ -179,7 +201,7 @@ const ContactUs = () => {
               </p>
               <iframe
                 title="Sweden House Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4249.684944767249!2d13.85049012426089!3d58.39057997913402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465bcaf280d294cd%3A0x5307819a00f964fd!2sSk%C3%B6vde%2C%20Sweden!5e1!3m2!1sen!2seg!4v1690673866645!5m2!1sen!2seg"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d234.9665803230503!2d13.874098137261761!3d58.3981476867099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465b023d3a4c413d%3A0x817d30b9033d4604!2zU2vDtnZkZSwgU3dlZGVu!5e1!3m2!1sen!2seg!4v1736600660840!5m2!1sen!2seg"
                 width="100%"
                 height="200"
                 allowFullScreen=""

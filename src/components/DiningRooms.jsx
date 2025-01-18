@@ -2,52 +2,118 @@
 import React, { useState } from 'react';
 
 const sampleProducts = [
+
   {
-    id: 1,
-    name: 'Awesome Sneakers',
+    id: 9,
+    name: '91',
     description:
-      'These sneakers are crafted with the finest materials and designed to make a bold statement wherever you go.',
+    'Gather your family and loved ones around our 91 dining room. Because family is not an important thing, it’s everything.',
     images: [
-      'https://picsum.photos/seed/sneaker1/600/400',
-      'https://picsum.photos/seed/sneaker2/600/400',
-      'https://picsum.photos/seed/sneaker3/600/400',
-      'https://picsum.photos/seed/sneaker4/600/400',
-      'https://picsum.photos/seed/sneaker5/600/400',
-      'https://picsum.photos/seed/sneaker6/600/400',
-      'https://picsum.photos/seed/sneaker7/600/400',
-      'https://picsum.photos/seed/sneaker8/600/400',
-      'https://picsum.photos/seed/sneaker9/600/400',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF3671-Edit-Edit-1-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1801-Edit-Edit-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1827.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1855-Edit.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1815-Edit.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/Arafa-culling-204-DSC04516.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/Arafa-culling-270-DSC04668.webp',
+    ],
+  },
+
+  {
+    id: 11,
+    name: 'FATIMA',
+    description:
+    'Elegance Redefined: Gather around a slice of sophistication. Our slender Fatimadining table with its finely engraved surface merges aesthetics with functionality, creating a dining experience that’s both intimate and exquisite. Perfect for those who appreciate the delicate art of dining.”',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC07245.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC_1890.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC07306.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC07262.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSC_1901.webp',
+    ],
+  },
+
+  {
+    id: 22,
+    name: 'Tijdloos Dining Room',
+    description:
+      'Elegance and Comfort Unite: A Perfect Blend of Wood, White Marble, and Serene Blue-Grey Fabrics in this Exquisite Dining Room.',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00653.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/20221020_151611-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/20221020_151546-scaled.webp',
+
+
+    ],
+  },
+
+  {
+    id: 25,
+    name: 'Luxe Dining Room',
+    description:
+      'Elegance meets vibrancy in this stunning dining room. The rich hues of the orange chairs infuse energy into the space, while the sleek marble top table exudes timeless sophistication. A perfect blend of style and comfort, this setting invites you to savor both delicious meals and delightful conversations',
+
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00634.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/IMG-1512-scaled.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00638.webp',
+    ],
+  },
+
+  {
+    id: 31,
+    name: 'COMPACT',
+    description:
+      'COMPACT a stunning set that combines natural materials with modern design in a space savvy design while not compromising  on style or elegance. The chairs are upholstered in soft velvet, providing both comfort and style. The wooden legs of the chairs and table is expertly crafted to showcase the natural grain and texture of the wood.',
+    images: [
+      'https://d1yp2xq08uy96k.cloudfront.net/images/cover-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9204.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9256.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9297.webp',
     ],
   },
   {
-    id: 2,
-    name: 'Stylish Jacket',
+    id: 32,
+    name: 'ORBIT',
     description:
-      'A lightweight jacket perfect for spring and fall. Durable, water-resistant, and fashion-forward.',
-    images: [
-      'https://picsum.photos/seed/jacket1/600/400',
-      'https://picsum.photos/seed/jacket2/600/400',
+      'the epitome of sophistication and elegance. orbit features a sleek marble tabletop that is both durable and beautiful, while the wooden legs and base provide a natural warmth and richness to the design. The leather chairs not only add a touch of luxury, but also provide comfortable seating for hours of dining pleasure.',
+    
+    images: [ 
+      'https://d1yp2xq08uy96k.cloudfront.net/images/cover.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF4584-1.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00710.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF4587.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9420.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9430-2.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF9419-1.webp',
     ],
   },
   {
-    id: 3,
-    name: 'Classic Watch',
+    id: 33,
+    name: 'BRANDO',
     description:
-      'An elegant watch that combines timeless style with modern functionality. Crafted for those who value quality.',
+    'BRANDO a stunning work of art that seamlessly integrates natural materials with modern design. The chairs are crafted from natural materials, such as wood and woven fibers, providing both comfort and style. The wooden frame of the chairs and table is expertly crafted to showcase the natural beauty of the materials.',
     images: [
-      'https://picsum.photos/seed/watch1/600/400',
-      'https://picsum.photos/seed/watch2/600/400',
-      'https://picsum.photos/seed/watch3/600/400',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF2017.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF2004.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1996.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF1998.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/DSCF2005-2.webp',
+
     ],
   },
   {
-    id: 4,
-    name: 'Leather Backpack',
+    id: 34,
+    name: 'FIKA',
     description:
-      'Carry all your essentials in style with this premium leather backpack. Perfect for work, travel, or everyday use.',
+"FIKA a stunning piece of furniture that combines natural materials with modern design. The chairs are upholstered in supple suede leather, providing both comfort and style. The wooden frame of the chairs and table is expertly crafted to showcase the natural grain and texture of the wood.",
     images: [
-      'https://picsum.photos/seed/backpack1/600/400',
-      'https://picsum.photos/seed/backpack2/600/400',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00489-2.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00456.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00464.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00481.webp',
+      'https://d1yp2xq08uy96k.cloudfront.net/images/AGO00510.webp',
+  
     ],
   },
 ];
